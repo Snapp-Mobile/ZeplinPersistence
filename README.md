@@ -1,3 +1,3 @@
 # ZeplinPersistence
 
-A description of this package.
+A Swift Package that wraps up a CoreData container for persisting user's notifications

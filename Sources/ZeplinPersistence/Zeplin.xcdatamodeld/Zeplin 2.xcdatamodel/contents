@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19571" systemVersion="21A559" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Notification" representedClassName="NotificationRecord" syncable="YES">
+        <attribute name="actionDescription" attributeType="String"/>
+        <attribute name="authorAvatarURL" optional="YES" attributeType="URI"/>
+        <attribute name="authorEmotar" optional="YES" attributeType="String"/>
+        <attribute name="authorName" attributeType="String"/>
+        <attribute name="contextDescription" attributeType="String"/>
+        <attribute name="created" attributeType="Date" defaultDateTimeInterval="-978314400" usesScalarValueType="NO"/>
+        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="isRead" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="lastUpdated" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="notificationId" attributeType="String"/>
+        <attribute name="originalData" attributeType="Binary"/>
+        <attribute name="projectId" optional="YES" attributeType="String"/>
+        <attribute name="remoteImageURL" optional="YES" attributeType="URI"/>
+        <attribute name="screenId" optional="YES" attributeType="String"/>
+    </entity>
+    <elements>
+        <element name="Notification" positionX="-63" positionY="-18" width="128" height="239"/>
+    </elements>
+</model>
