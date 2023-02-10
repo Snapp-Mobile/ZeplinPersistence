@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum AppTarget: String, CaseIterable {
+public enum AppTarget: String, CaseIterable, Sendable {
     case macOSApp
     case macOSWidget
     case iOSApp

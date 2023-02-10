@@ -18,8 +18,8 @@ let package = Package(
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
-        .package(url: "https://github.com/Snapp-Mobile/Fetcher", from: "0.0.1"),
-        .package(url: "https://github.com/Snapp-Mobile/ZeplinKit", from: "0.0.1"),
+        .package(url: "https://github.com/Snapp-Mobile/Fetcher", from: "0.0.2"),
+        .package(url: "https://github.com/Snapp-Mobile/ZeplinKit", from: "0.0.3"),
         .package(url: "https://github.com/jrendel/SwiftKeychainWrapper", from: "4.0.0"),
     ],
     targets: [
