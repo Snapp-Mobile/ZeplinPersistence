@@ -105,7 +105,7 @@ public extension NotificationRecord {
         isRead = notification.isRead
         actionDescription = notification.actionDescription
         contextDescription = notification.contextDescription
-        if let remoteImageURLStr = notification.screenVersion?.thumbnails["small"] {
+        if let remoteImageURLStr = notification.screenVersion?.thumbnails.small {
             remoteImageURL = URL(string: remoteImageURLStr)
         }
         authorName = notification.actor.user?.username ?? "[unknown]"
