@@ -113,6 +113,11 @@ public actor TokenRepository {
         return try await task.value
     }
 
+    @MainActor
+    private func isProtectedDataAvailable() -> Bool {
+        UIApplication.shared.isProtectedDataAvailable
+    }
+
     /// Gets the current token
     /// - Parameter logger: A logger to log actions on
     /// - Returns: An optional token
@@ -133,7 +138,7 @@ public actor TokenRepository {
             defer { getTokenTask = nil }
             var attempt = 0
             while attempt < 5 {
-                if await UIApplication.shared.isProtectedDataAvailable {
+                if await isProtectedDataAvailable() {
                     guard let data = keychain.data(forKey: key, withAccessibility: accessibility),
                           let token = try? JSONDecoder().decode(Token.self, from: data)
                     else {

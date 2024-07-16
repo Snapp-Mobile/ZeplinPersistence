@@ -8,7 +8,9 @@
 import CoreData
 import os
 
-public struct PersistenceController {
+extension FileManager: @retroactive @unchecked Sendable {}
+
+public struct PersistenceController: Sendable {
     public static let test = PersistenceController(inMemory: true)
     public static let app = PersistenceController(target: .iOSApp, inMemory: false)
     public let container: NSPersistentContainer
