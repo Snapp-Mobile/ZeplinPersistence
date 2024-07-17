@@ -53,7 +53,7 @@ public actor TokenRepository {
             defer { updateTokenTask = nil }
             var attempt = 0
             while attempt < 5 {
-                if await UIApplication.shared.isProtectedDataAvailable {
+                if await isProtectedDataAvailable() {
                     guard token != nil, let data = try? JSONEncoder().encode(token) else {
                         keychain.removeObject(forKey: key)
                         await logger?.logMessage("Storing empty token done")
@@ -96,7 +96,7 @@ public actor TokenRepository {
             defer { refreshTokenTask = nil }
             var attempt = 0
             while attempt < 5 {
-                if await UIApplication.shared.isProtectedDataAvailable {
+                if await isProtectedDataAvailable() {
                     await logger?.logMessage("Refreshing token")
                     let responseToken: Token? = try await fetcher.fetch(refreshTokenURL, token: token)
                     await logger?.logMessage("Got fresh token, storing")
