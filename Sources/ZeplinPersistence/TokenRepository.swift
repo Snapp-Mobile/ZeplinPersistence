@@ -39,6 +39,11 @@ public actor TokenRepository {
         self.refreshTokenURL = ZeplinAPIURL.refreshToken(configuration)
     }
 
+    @MainActor
+    private func isProtectedDataAvailable() -> Bool {
+        UIApplication.shared.isProtectedDataAvailable
+    }
+
     /// Stores the token to the keychain without any modifications
     /// - Parameters:
     ///   - token: The token to store
@@ -111,11 +116,6 @@ public actor TokenRepository {
 
         refreshTokenTask = task
         return try await task.value
-    }
-
-    @MainActor
-    private func isProtectedDataAvailable() -> Bool {
-        UIApplication.shared.isProtectedDataAvailable
     }
 
     /// Gets the current token
