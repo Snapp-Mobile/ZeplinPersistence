@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// Defines different app targets for sharing data and configuring persistence.
 public enum AppTarget: String, CaseIterable, Sendable {
     case macOSApp
     case macOSWidget
@@ -16,6 +17,7 @@ public enum AppTarget: String, CaseIterable, Sendable {
     case watchOSApp
     case watchOSComplication
 
+    /// Transaction author identifier for CoreData history tracking.
     public var transactionAuthor: String {
         switch self {
         case .macOSApp:
@@ -35,6 +37,7 @@ public enum AppTarget: String, CaseIterable, Sendable {
         }
     }
 
+    /// App group identifier for sharing data between targets.
     public var groupIdentifier: String {
         switch self {
         case .macOSApp, .macOSWidget:
@@ -46,10 +49,12 @@ public enum AppTarget: String, CaseIterable, Sendable {
         }
     }
 
+    /// Shared UserDefaults instance for the app group.
     public var userDefaults: UserDefaults? {
         return UserDefaults(suiteName: groupIdentifier)
     }
 
+    /// Widget kind identifier for refreshing widgets.
     public var widgetKind: String? {
         switch self {
         case .macOSApp:

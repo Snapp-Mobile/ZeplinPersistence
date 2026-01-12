@@ -8,12 +8,20 @@
 import CoreData
 import os
 
+/// Configures and manages the CoreData stack for storing notifications.
 public struct PersistenceController {
+    /// Test instance with in-memory store.
     public static let test = PersistenceController(inMemory: true)
+    /// App instance configured for iOS with persistent storage.
     public static let app = PersistenceController(target: .iOSApp, inMemory: false)
+    /// The persistent container managing the CoreData stack.
     public let container: NSPersistentContainer
     private let fileManager = FileManager.default
 
+    /// Creates a persistence controller.
+    /// - Parameters:
+    ///   - target: App target for configuring shared containers.
+    ///   - inMemory: Whether to use in-memory storage for testing.
     public init(target: AppTarget? = nil, inMemory: Bool = false) {
         if let modelURL = Bundle.module.url(forResource: "Zeplin", withExtension: "momd"),
             let model = NSManagedObjectModel(contentsOf: modelURL)
