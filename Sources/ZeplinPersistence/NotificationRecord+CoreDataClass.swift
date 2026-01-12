@@ -1,6 +1,6 @@
 //
 //  NotificationRecord+CoreDataClass.swift
-//  
+//
 //
 //  Created by Ilian Konchev on 9.10.21.
 //  Copyright © 2021 Ilian Konchev. All rights reserved.
@@ -34,7 +34,7 @@ public class NotificationRecord: NSManagedObject {
         request.propertiesToFetch = [
             "actionDescription", "authorName", "authorAvatarURL", "authorEmotar",
             "created", "contextDescription", "isRead", "lastUpdated", "notificationId", "projectId",
-            "remoteImageURL", "screenId"
+            "remoteImageURL", "screenId",
         ]
         request.sortDescriptors = [
             NSSortDescriptor(key: "created", ascending: false)
@@ -90,14 +90,14 @@ public class NotificationRecord: NSManagedObject {
     }
 }
 
-public extension NotificationRecord {
-    static func create(with notification: ZeplinNotification, in context: NSManagedObjectContext) {
+extension NotificationRecord {
+    public static func create(with notification: ZeplinNotification, in context: NSManagedObjectContext) {
         let record = NotificationRecord(context: context)
         record.id = UUID()
         record.update(from: notification)
     }
 
-    func update(from notification: ZeplinNotification) {
+    public func update(from notification: ZeplinNotification) {
         created = Date(timeIntervalSince1970: notification.created)
         notificationId = notification.id
         let lastUpdatedInterval = notification.updated ?? notification.created
@@ -125,17 +125,19 @@ public extension NotificationRecord {
         }
     }
 
-    var representation: ZeplinNotificationRepresentation {
-        return ZeplinNotificationRepresentation(id: notificationId,
-                                                created: created.timeIntervalSince1970,
-                                                lastUpdated: lastUpdated.timeIntervalSince1970,
-                                                isRead: isRead)
+    public var representation: ZeplinNotificationRepresentation {
+        return ZeplinNotificationRepresentation(
+            id: notificationId,
+            created: created.timeIntervalSince1970,
+            lastUpdated: lastUpdated.timeIntervalSince1970,
+            isRead: isRead
+        )
     }
 
-    func matches(_ searchTerm: String, _ showsOnlyUnread: Bool) -> Bool {
+    public func matches(_ searchTerm: String, _ showsOnlyUnread: Bool) -> Bool {
         let term = searchTerm.lowercased()
-        let termMatched = searchTerm.isEmpty ? true : (actionDescription.lowercased().contains(term) ||
-                                                        contextDescription.lowercased().contains(term))
+        let termMatched =
+            searchTerm.isEmpty ? true : (actionDescription.lowercased().contains(term) || contextDescription.lowercased().contains(term))
         if showsOnlyUnread {
             return termMatched && !isRead
         } else {
@@ -143,7 +145,7 @@ public extension NotificationRecord {
         }
     }
 
-    func differsFrom(_ notification: ZeplinNotification) -> Bool {
+    public func differsFrom(_ notification: ZeplinNotification) -> Bool {
         let date = notification.updated ?? notification.created
         return lastUpdated.timeIntervalSince1970 != date || created.timeIntervalSince1970 != notification.created
     }

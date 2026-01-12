@@ -1,6 +1,6 @@
 //
 //  AppTarget.swift
-//  
+//
 //
 //  Created by Ilian Konchev on 5.10.21.
 //

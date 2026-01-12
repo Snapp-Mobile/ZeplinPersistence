@@ -1,6 +1,6 @@
 //
 //  TokenRepository.swift
-//  
+//
 //
 //  Created by Ilian Konchev on 26.11.21.
 //
@@ -28,11 +28,13 @@ public actor TokenRepository {
     ///   - accessibility: The accessibility level of the stored data
     ///   - serviceName: The name of the service to set for the keychain item
     ///   - appTarget: The app target whose group identifier is going be used for setting the access group
-    public init(key: String,
-                accessibility: KeychainItemAccessibility? = nil,
-                serviceName: String,
-                appTarget: AppTarget,
-                configuration: ZeplinAPIConfiguration) {
+    public init(
+        key: String,
+        accessibility: KeychainItemAccessibility? = nil,
+        serviceName: String,
+        appTarget: AppTarget,
+        configuration: ZeplinAPIConfiguration
+    ) {
         self.keychain = KeychainWrapper(serviceName: serviceName, accessGroup: appTarget.groupIdentifier)
         self.key = key
         self.accessibility = accessibility
@@ -86,7 +88,7 @@ public actor TokenRepository {
         }
 
         if let handle = updateTokenTask {
-           return try await handle.value
+            return try await handle.value
         }
 
         let logger = fetcher.environment.apiErrorsLogger
@@ -135,7 +137,7 @@ public actor TokenRepository {
             while attempt < 5 {
                 if await UIApplication.shared.isProtectedDataAvailable {
                     guard let data = keychain.data(forKey: key, withAccessibility: accessibility),
-                          let token = try? JSONDecoder().decode(Token.self, from: data)
+                        let token = try? JSONDecoder().decode(Token.self, from: data)
                     else {
                         await logger?.logMessage("Unable to decode the token from the keychain, returning nil.")
                         return nil
