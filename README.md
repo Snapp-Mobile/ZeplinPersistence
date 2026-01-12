@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="Sources/ZeplinPersistence.docc/Resources/ZeplinPersistance-logo.png" width="200" alt="ZeplinPersistence Logo">
+  <img src="Sources/ZeplinPersistence/ZeplinPersistence.docc/Resources/ZeplinPersistance-logo.png" width="200" alt="ZeplinPersistence Logo">
 </div>
 
 # ZeplinPersistence
