@@ -6,7 +6,7 @@
 
 A Swift Package that wraps up a CoreData container for persisting user's notifications
 
-[![Swift Package Index](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2FSnapp-Mobile%2FZeplinPersistence%2Fbadge%3Ftype%3Dswift-versions)](https://swiftpackageindex.com/Snapp-Mobile/ZeplinPersistence)
+[![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2FSnapp-Mobile%2FZeplinPersistence%2Fbadge%3Ftype%3Dswift-versions)](https://swiftpackageindex.com/Snapp-Mobile/ZeplinPersistence)
 [![iOS 13.0+](https://img.shields.io/badge/iOS-13.0+-007AFF?logo=apple&logoColor=white)](https://www.apple.com/ios/)
 [![Latest Release](https://img.shields.io/github/v/release/Snapp-Mobile/ZeplinPersistence?color=8B5CF6&logo=github&logoColor=white)](https://github.com/Snapp-Mobile/ZeplinPersistence/releases)
 [![Tests](https://github.com/Snapp-Mobile/ZeplinPersistence/actions/workflows/test.yml/badge.svg)](https://github.com/Snapp-Mobile/ZeplinPersistence/actions)
