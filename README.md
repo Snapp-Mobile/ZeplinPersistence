@@ -18,6 +18,10 @@ ZeplinPersistence is the data layer for the Zeplin Mobile app. It handles storin
 
 The `PersistenceController` sets up a CoreData stack that can work with shared containers or in-memory stores for testing. The `TokenRepository` is an actor that safely manages OAuth tokens, handling refreshes and waiting for the device to unlock before accessing the keychain.
 
+## Documentation
+
+For more information visit  [Documentation](https://swiftpackageindex.com/Snapp-Mobile/ZeplinPersistence/main/documentation/zeplinpersistence).
+
 ## Installation
 
 Add ZeplinPersistence to your project using Swift Package Manager. In Xcode, go to File → Add Package Dependencies and enter the repository URL, or add it to your `Package.swift` file.
