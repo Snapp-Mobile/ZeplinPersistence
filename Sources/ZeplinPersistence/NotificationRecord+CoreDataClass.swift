@@ -1,6 +1,6 @@
 //
 //  NotificationRecord+CoreDataClass.swift
-//  
+//
 //
 //  Created by Ilian Konchev on 9.10.21.
 //  Copyright © 2021 Ilian Konchev. All rights reserved.
@@ -11,6 +11,7 @@ import CoreData
 import Foundation
 import ZeplinKit
 
+/// CoreData entity representing a Zeplin notification.
 @objc(NotificationRecord)
 public class NotificationRecord: NSManagedObject {
     @NSManaged public var actionDescription: String
@@ -28,13 +29,14 @@ public class NotificationRecord: NSManagedObject {
     @NSManaged public var remoteImageURL: URL?
     @NSManaged public var screenId: String?
 
+    /// Standard fetch request sorted by creation date.
     @nonobjc
     public class func fetchRequest() -> NSFetchRequest<NotificationRecord> {
         let request = NSFetchRequest<NotificationRecord>(entityName: "Notification")
         request.propertiesToFetch = [
             "actionDescription", "authorName", "authorAvatarURL", "authorEmotar",
             "created", "contextDescription", "isRead", "lastUpdated", "notificationId", "projectId",
-            "remoteImageURL", "screenId"
+            "remoteImageURL", "screenId",
         ]
         request.sortDescriptors = [
             NSSortDescriptor(key: "created", ascending: false)
@@ -44,6 +46,7 @@ public class NotificationRecord: NSManagedObject {
         return request
     }
 
+    /// Fetch request for notification IDs and timestamps only.
     @nonobjc
     public class func fetchKnownNotifications() -> NSFetchRequest<NotificationRecord> {
         let request = NSFetchRequest<NotificationRecord>(entityName: "Notification")
@@ -81,6 +84,7 @@ public class NotificationRecord: NSManagedObject {
         return request
     }
 
+    /// Finds a notification by its ID.
     @nonobjc
     public class func findById(_ notificationId: String) -> NSFetchRequest<NotificationRecord> {
         let request = NSFetchRequest<NotificationRecord>(entityName: "Notification")
@@ -90,14 +94,16 @@ public class NotificationRecord: NSManagedObject {
     }
 }
 
-public extension NotificationRecord {
-    static func create(with notification: ZeplinNotification, in context: NSManagedObjectContext) {
+extension NotificationRecord {
+    /// Creates a new notification record from a Zeplin notification.
+    public static func create(with notification: ZeplinNotification, in context: NSManagedObjectContext) {
         let record = NotificationRecord(context: context)
         record.id = UUID()
         record.update(from: notification)
     }
 
-    func update(from notification: ZeplinNotification) {
+    /// Updates the record with data from a Zeplin notification.
+    public func update(from notification: ZeplinNotification) {
         created = Date(timeIntervalSince1970: notification.created)
         notificationId = notification.id
         let lastUpdatedInterval = notification.updated ?? notification.created
@@ -125,17 +131,21 @@ public extension NotificationRecord {
         }
     }
 
-    var representation: ZeplinNotificationRepresentation {
-        return ZeplinNotificationRepresentation(id: notificationId,
-                                                created: created.timeIntervalSince1970,
-                                                lastUpdated: lastUpdated.timeIntervalSince1970,
-                                                isRead: isRead)
+    /// Lightweight representation of the notification for API operations.
+    public var representation: ZeplinNotificationRepresentation {
+        return ZeplinNotificationRepresentation(
+            id: notificationId,
+            created: created.timeIntervalSince1970,
+            lastUpdated: lastUpdated.timeIntervalSince1970,
+            isRead: isRead
+        )
     }
 
-    func matches(_ searchTerm: String, _ showsOnlyUnread: Bool) -> Bool {
+    /// Checks if the notification matches a search term and read status filter.
+    public func matches(_ searchTerm: String, _ showsOnlyUnread: Bool) -> Bool {
         let term = searchTerm.lowercased()
-        let termMatched = searchTerm.isEmpty ? true : (actionDescription.lowercased().contains(term) ||
-                                                        contextDescription.lowercased().contains(term))
+        let termMatched =
+            searchTerm.isEmpty ? true : (actionDescription.lowercased().contains(term) || contextDescription.lowercased().contains(term))
         if showsOnlyUnread {
             return termMatched && !isRead
         } else {
@@ -143,7 +153,8 @@ public extension NotificationRecord {
         }
     }
 
-    func differsFrom(_ notification: ZeplinNotification) -> Bool {
+    /// Checks if the notification has different timestamps than the API notification.
+    public func differsFrom(_ notification: ZeplinNotification) -> Bool {
         let date = notification.updated ?? notification.created
         return lastUpdated.timeIntervalSince1970 != date || created.timeIntervalSince1970 != notification.created
     }
