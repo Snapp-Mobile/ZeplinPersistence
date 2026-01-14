@@ -24,7 +24,7 @@ let package = Package(
         .target(
             name: "ZeplinPersistence",
             dependencies: ["ZeplinKit", "Fetcher", "SwiftKeychainWrapper"],
-            plugins: [.plugin(name: "Lint", package: "SwiftFormatLintPlugin")],
+            plugins: [.plugin(name: "Lint", package: "SwiftFormatLintPlugin")]
         ),
         .testTarget(
             name: "ZeplinPersistenceTests",
